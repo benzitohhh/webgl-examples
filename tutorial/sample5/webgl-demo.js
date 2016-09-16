@@ -4,7 +4,6 @@ var gl;
 var cubeVerticesBuffer;
 var cubeVerticesColorBuffer;
 var cubeVerticesIndexBuffer;
-var cubeVerticesIndexBuffer;
 var cubeRotation = 0.0;
 var cubeXOffset = 0.0;
 var cubeYOffset = 0.0;
@@ -225,7 +224,9 @@ function drawScene() {
 
   mvPushMatrix();
   mvRotate(cubeRotation, [1, 0, 1]);
-  mvTranslate([cubeXOffset, cubeYOffset, cubeZOffset]);
+  //mvTranslate([cubeXOffset, cubeYOffset, cubeZOffset]); // TODO: uncomment this
+
+  // TODO: understand order in which the trnaslations / rotations are applied
 
   // Draw the cube by binding the array buffer to the cube's vertices
   // array, setting attributes, and pushing it to GL.
@@ -241,7 +242,7 @@ function drawScene() {
   // Draw the cube.
 
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVerticesIndexBuffer);
-  setMatrixUniforms();
+  setMatrixUniforms(); // passes mvMatrix, pMatrix to gl
   gl.drawElements(gl.TRIANGLES, 36, gl.UNSIGNED_SHORT, 0);
 
   // Restore the original matrix
@@ -250,14 +251,16 @@ function drawScene() {
 
   // Update the rotation for the next draw, if it's time to do so.
 
+  var STEP = 10;
+
   var currentTime = (new Date).getTime();
   if (lastCubeUpdateTime) {
     var delta = currentTime - lastCubeUpdateTime;
 
-    cubeRotation += (30 * delta) / 1000.0;
-    cubeXOffset += xIncValue * ((30 * delta) / 1000.0);
-    cubeYOffset += yIncValue * ((30 * delta) / 1000.0);
-    cubeZOffset += zIncValue * ((30 * delta) / 1000.0);
+    cubeRotation += (STEP * delta) / 1000.0;
+    cubeXOffset += xIncValue * ((STEP * delta) / 1000.0);
+    cubeYOffset += yIncValue * ((STEP * delta) / 1000.0);
+    cubeZOffset += zIncValue * ((STEP * delta) / 1000.0);
 
     if (Math.abs(cubeYOffset) > 2.5) {
       xIncValue = -xIncValue;

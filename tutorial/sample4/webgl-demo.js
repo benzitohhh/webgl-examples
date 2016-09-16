@@ -176,14 +176,16 @@ function drawScene() {
 
   // Update the rotation for the next draw, if it's time to do so.
 
+  var STEP = 20;
+
   var currentTime = (new Date).getTime();
   if (lastSquareUpdateTime) {
-    var delta = currentTime - lastSquareUpdateTime;
+    var delta = currentTime - lastSquareUpdateTime; // in milliseconds
 
-    squareRotation += (30 * delta) / 1000.0;
-    squareXOffset += xIncValue * ((30 * delta) / 1000.0);
-    squareYOffset += yIncValue * ((30 * delta) / 1000.0);
-    squareZOffset += zIncValue * ((30 * delta) / 1000.0);
+    squareRotation += (STEP * delta) / 1000.0;
+    squareXOffset += xIncValue * ((STEP * delta) / 1000.0);
+    squareYOffset += yIncValue * ((STEP * delta) / 1000.0);
+    squareZOffset += zIncValue * ((STEP * delta) / 1000.0);
 
     if (Math.abs(squareYOffset) > 2.5) {
       xIncValue = -xIncValue;
