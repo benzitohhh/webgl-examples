@@ -217,7 +217,9 @@ function initTextures() {
   cubeTexture = gl.createTexture();
   cubeImage = new Image();
   cubeImage.onload = function() { handleTextureLoaded(cubeImage, cubeTexture); }
-  cubeImage.src = "cubetexture.png";
+  //cubeImage.src = "cubetexture.png";
+  cubeImage.src = "mari.jpg";
+  //cubeImage.src = "cipher.png";
 }
 
 function handleTextureLoaded(image, texture) {
