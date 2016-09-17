@@ -4,7 +4,6 @@ var gl;
 var cubeVerticesBuffer;
 var cubeVerticesTextureCoordBuffer;
 var cubeVerticesIndexBuffer;
-var cubeVerticesIndexBuffer;
 var cubeRotation = 0.0;
 var lastCubeUpdateTime = 0;
 
@@ -193,36 +192,68 @@ function initBuffers() {
   gl.bindBuffer(gl.ARRAY_BUFFER, cubeVerticesTextureCoordBuffer);
 
   var textureCoordinates = [
+    // BEN: hmmm seems like texture-space here has y=0 at the top, and y=1 at the bottom.
     // Front
-    0.0,  0.0,
-    1.0,  0.0,
-    1.0,  1.0,
     0.0,  1.0,
+    1.0,  1.0,
+    1.0,  0.0,
+    0.0,  0.0,
     // Back
-    0.0,  0.0,
-    1.0,  0.0,
-    1.0,  1.0,
     0.0,  1.0,
+    1.0,  1.0,
+    1.0,  0.0,
+    0.0,  0.0,
     // Top
-    0.0,  0.0,
-    1.0,  0.0,
-    1.0,  1.0,
     0.0,  1.0,
+    1.0,  1.0,
+    1.0,  0.0,
+    0.0,  0.0,
     // Bottom
-    0.0,  0.0,
-    1.0,  0.0,
-    1.0,  1.0,
     0.0,  1.0,
+    1.0,  1.0,
+    1.0,  0.0,
+    0.0,  0.0,
     // Right
-    0.0,  0.0,
-    1.0,  0.0,
-    1.0,  1.0,
     0.0,  1.0,
-    // Left
-    0.0,  0.0,
-    1.0,  0.0,
     1.0,  1.0,
-    0.0,  1.0
+    1.0,  0.0,
+    0.0,  0.0,
+    // Left
+    0.0,  1.0,
+    1.0,  1.0,
+    1.0,  0.0,
+    0.0,  0.0
+
+    // Front
+    // 0.0,  0.0,
+    // 1.0,  0.0,
+    // 1.0,  1.0,
+    // 0.0,  1.0,
+    // Back
+    // 0.0,  0.0,
+    // 1.0,  0.0,
+    // 1.0,  1.0,
+    // 0.0,  1.0,
+    // // Top
+    // 0.0,  0.0,
+    // 1.0,  0.0,
+    // 1.0,  1.0,
+    // 0.0,  1.0,
+    // // Bottom
+    // 0.0,  0.0,
+    // 1.0,  0.0,
+    // 1.0,  1.0,
+    // 0.0,  1.0,
+    // // Right
+    // 0.0,  0.0,
+    // 1.0,  0.0,
+    // 1.0,  1.0,
+    // 0.0,  1.0,
+    // // Left
+    // 0.0,  0.0,
+    // 1.0,  0.0,
+    // 1.0,  1.0,
+    // 0.0,  1.0
   ];
 
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates),
@@ -264,7 +295,9 @@ function initTextures() {
   cubeTexture = gl.createTexture();
   cubeImage = new Image();
   cubeImage.onload = function() { handleTextureLoaded(cubeImage, cubeTexture); }
-  cubeImage.src = "cubetexture.png";
+  //cubeImage.src = "cubetexture.png";
+  //cubeImage.src = "mari.jpg";
+  cubeImage.src = "cipher.png";
 }
 
 function handleTextureLoaded(image, texture) {
@@ -301,7 +334,7 @@ function drawScene() {
   // Now move the drawing position a bit to where we want to start
   // drawing the cube.
 
-  mvTranslate([0.0, 0.0, -6.0]);
+  mvTranslate([-0.0, 0.0, -6.0]);
 
   // Save the current matrix, then rotate before we draw.
 
@@ -341,7 +374,6 @@ function drawScene() {
   mvPopMatrix();
 
   // Update the rotation for the next draw, if it's time to do so.
-
   var currentTime = (new Date).getTime();
   if (lastCubeUpdateTime) {
     var delta = currentTime - lastCubeUpdateTime;
