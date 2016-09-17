@@ -11,3 +11,13 @@
 * http://mdn.github.io/webgl-examples/tutorial/sample6/
 * http://mdn.github.io/webgl-examples/tutorial/sample7/
 * http://mdn.github.io/webgl-examples/tutorial/sample8/
+
+# To run
+Make sure http-server is installed (`npm install -g http-server`).
+
+Then
+```
+cd tutorial
+http-server
+```
+and navigate to http://localhost:8080
