@@ -9,9 +9,9 @@ var cubeXOffset = 0.0;
 var cubeYOffset = 0.0;
 var cubeZOffset = 0.0;
 var lastCubeUpdateTime = 0;
-var xIncValue = 0.2;
+var xIncValue = 0.0;
 var yIncValue = -0.4;
-var zIncValue = 0.3;
+var zIncValue = 0.0;
 
 var mvMatrix;
 var shaderProgram;
@@ -223,10 +223,16 @@ function drawScene() {
   // Save the current matrix, then rotate before we draw.
 
   mvPushMatrix();
-  mvRotate(cubeRotation, [1, 0, 1]);
-  //mvTranslate([cubeXOffset, cubeYOffset, cubeZOffset]); // TODO: uncomment this
+  mvRotate(cubeRotation, [0, 0, 1]);
+  mvTranslate([cubeXOffset, cubeYOffset, cubeZOffset]);
 
-  // TODO: understand order in which the trnaslations / rotations are applied
+  // BEN NOTES:
+  // Here, the translate will be applied BEFORE the rotate
+  // In this case, the translate increases object's distance from origin,
+  // leading to a larger arc of rotation.
+  // If the rotation was applied BEFORE the translation,
+  // it would give the effect of rotating the object around it's own centre
+  // (since the object is centred around the origin).
 
   // Draw the cube by binding the array buffer to the cube's vertices
   // array, setting attributes, and pushing it to GL.
